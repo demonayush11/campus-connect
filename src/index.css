@@ -2,41 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* campusConnect Design System - Modern college social platform */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    /* Core Brand Colors */
+    --background: 255 255 255;
     --foreground: 222.2 84% 4.9%;
 
-    --card: 0 0% 100%;
+    --card: 255 255 255;
     --card-foreground: 222.2 84% 4.9%;
 
-    --popover: 0 0% 100%;
+    --popover: 255 255 255;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Campus Brand Primary - Modern Purple */
+    --primary: 259 94% 51%;
+    --primary-foreground: 255 255 255;
+    --primary-glow: 259 94% 71%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Vibrant Blue */
+    --secondary: 217 91% 60%;
+    --secondary-foreground: 255 255 255;
 
+    /* Accent - Fresh Green */
+    --accent: 142 76% 36%;
+    --accent-foreground: 255 255 255;
+
+    /* Muted Tones */
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 259 94% 51%;
 
-    --radius: 0.5rem;
+    /* Hero Gradient Colors */
+    --hero-gradient-start: 259 94% 51%;
+    --hero-gradient-end: 217 91% 60%;
+    
+    /* Feature Cards */
+    --feature-bg: 255 255 255;
+    --feature-border: 214.3 31.8% 91.4%;
+
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -65,24 +77,31 @@ All colors MUST be HSL.
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
+    --primary: 259 94% 71%;
     --primary-foreground: 222.2 47.4% 11.2%;
+    --primary-glow: 259 94% 81%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 217 91% 70%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 142 76% 46%;
+    --accent-foreground: 210 40% 98%;
 
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --ring: 259 94% 71%;
+
+    --hero-gradient-start: 259 94% 71%;
+    --hero-gradient-end: 217 91% 70%;
+    
+    --feature-bg: 217.2 32.6% 17.5%;
+    --feature-border: 217.2 32.6% 25.5%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
