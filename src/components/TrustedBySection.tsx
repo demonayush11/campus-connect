@@ -11,7 +11,7 @@ const TrustedBySection = () => {
   ];
 
   return (
-    <section className="py-16 bg-muted/50">
+    <section className="py-16 bg-[#030303]">
       <div className="container mx-auto px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -19,7 +19,7 @@ const TrustedBySection = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-sm font-semibold text-muted-foreground mb-8 tracking-wider uppercase">
+          <h2 className="text-sm font-semibold text-white/60 mb-8 tracking-wider uppercase">
             Trusted by Students at Top Universities
           </h2>
         </motion.div>
@@ -35,7 +35,7 @@ const TrustedBySection = () => {
               className="flex flex-col items-center justify-center p-6 rounded-xl bg-card border border-feature-border hover:shadow-lg transition-all duration-300"
             >
               <div className="text-4xl mb-2">{university.logo}</div>
-              <span className="text-sm font-semibold text-foreground">{university.name}</span>
+              <span className="text-sm font-semibold text-white/80">{university.name}</span>
             </motion.div>
           ))}
         </div>
@@ -47,8 +47,8 @@ const TrustedBySection = () => {
           transition={{ delay: 0.6 }}
           className="text-center mt-12"
         >
-          <p className="text-muted-foreground">
-            Join <span className="font-semibold text-primary">50,000+</span> students already connecting
+          <p className="text-white/60">
+            Join <span className="font-semibold text-indigo-300">50,000+</span> students already connecting
           </p>
         </motion.div>
       </div>

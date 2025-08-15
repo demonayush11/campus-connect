@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button";
 
 const CTASection = () => {
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section className="py-20 relative overflow-hidden bg-[#030303]">
       {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5" />
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.05] via-transparent to-rose-500/[0.05]" />
       
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -49,19 +49,19 @@ const CTASection = () => {
             viewport={{ once: true }}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8"
           >
-            <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-primary">Join the Campus Revolution</span>
+            <Sparkles className="w-4 h-4 text-indigo-300" />
+            <span className="text-sm font-medium text-indigo-300">Join the Campus Revolution</span>
           </motion.div>
 
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
             Ready to{" "}
-            <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300 bg-clip-text text-transparent">
               Transform
             </span>{" "}
             Your Campus Experience?
           </h2>
 
-          <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-white/60 mb-10 max-w-2xl mx-auto leading-relaxed">
             Join thousands of students who are already building meaningful connections, 
             finding mentors, and creating lasting friendships through campusConnect.
           </p>
@@ -98,16 +98,16 @@ const CTASection = () => {
             className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-center"
           >
             <div>
-              <div className="text-3xl font-bold text-primary mb-2">50K+</div>
-              <div className="text-muted-foreground">Active Students</div>
+              <div className="text-3xl font-bold text-indigo-300 mb-2">50K+</div>
+              <div className="text-white/60">Active Students</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-secondary mb-2">500+</div>
-              <div className="text-muted-foreground">Universities</div>
+              <div className="text-3xl font-bold text-rose-300 mb-2">500+</div>
+              <div className="text-white/60">Universities</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-accent mb-2">1M+</div>
-              <div className="text-muted-foreground">Connections Made</div>
+              <div className="text-3xl font-bold text-violet-300 mb-2">1M+</div>
+              <div className="text-white/60">Connections Made</div>
             </div>
           </motion.div>
         </motion.div>

@@ -18,7 +18,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-muted/30 border-t border-border">
+    <footer className="bg-[#030303] border-t border-white/10">
       <div className="container mx-auto px-4 md:px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
           {/* Brand Section */}
@@ -29,10 +29,10 @@ const Footer = () => {
               viewport={{ once: true }}
               className="flex items-center space-x-2 mb-4"
             >
-              <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center">
-                <Users className="w-5 h-5 text-primary-foreground" />
+              <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-rose-500 rounded-lg flex items-center justify-center">
+                <Users className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              <span className="text-xl font-bold bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300 bg-clip-text text-transparent">
                 campusConnect
               </span>
             </motion.div>
@@ -79,7 +79,7 @@ const Footer = () => {
               viewport={{ once: true }}
               transition={{ delay: categoryIndex * 0.1 }}
             >
-              <h3 className="font-semibold text-foreground mb-4">{category}</h3>
+              <h3 className="font-semibold text-white mb-4">{category}</h3>
               <ul className="space-y-3">
                 {links.map((link, linkIndex) => (
                   <motion.li
@@ -110,18 +110,18 @@ const Footer = () => {
           transition={{ delay: 0.5 }}
           className="mt-16 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center"
         >
-          <p className="text-muted-foreground text-sm mb-4 md:mb-0">
+          <p className="text-white/60 text-sm mb-4 md:mb-0">
             © 2024 campusConnect. All rights reserved.
           </p>
           
           <div className="flex items-center space-x-6 text-sm">
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+            <a href="#" className="text-white/60 hover:text-indigo-300 transition-colors">
               Privacy Policy
             </a>
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+            <a href="#" className="text-white/60 hover:text-indigo-300 transition-colors">
               Terms of Service
             </a>
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+            <a href="#" className="text-white/60 hover:text-indigo-300 transition-colors">
               Cookie Policy
             </a>
           </div>

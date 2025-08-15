@@ -13,7 +13,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-lg border-b border-border">
+    <nav className="fixed top-0 w-full z-50 bg-[#030303]/90 backdrop-blur-lg border-b border-white/10">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -22,10 +22,10 @@ const Navbar = () => {
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center space-x-2"
           >
-            <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center">
-              <Users className="w-5 h-5 text-primary-foreground" />
+            <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-rose-500 rounded-lg flex items-center justify-center">
+              <Users className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <span className="text-xl font-bold bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300 bg-clip-text text-transparent">
               campusConnect
             </span>
           </motion.div>
@@ -39,7 +39,7 @@ const Navbar = () => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="text-foreground hover:text-primary transition-colors duration-200 font-medium"
+                className="text-white/70 hover:text-white transition-colors duration-200 font-medium"
               >
                 {item.label}
               </motion.a>
@@ -48,10 +48,10 @@ const Navbar = () => {
 
           {/* Desktop CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" className="text-foreground hover:text-primary">
+            <Button variant="ghost" className="text-white/70 hover:text-white hover:bg-white/10">
               Log In
             </Button>
-            <Button className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity">
+            <Button className="bg-gradient-to-r from-indigo-500 to-rose-500 hover:opacity-90 transition-opacity text-white">
               Sign Up
             </Button>
           </div>
@@ -63,9 +63,9 @@ const Navbar = () => {
             aria-label="Toggle menu"
           >
             {isOpen ? (
-              <X className="w-6 h-6 text-foreground" />
+              <X className="w-6 h-6 text-white/70" />
             ) : (
-              <Menu className="w-6 h-6 text-foreground" />
+              <Menu className="w-6 h-6 text-white/70" />
             )}
           </button>
         </div>
@@ -90,10 +90,10 @@ const Navbar = () => {
                 </a>
               ))}
               <div className="flex flex-col space-y-2 pt-4">
-                <Button variant="ghost" className="justify-start">
+                <Button variant="ghost" className="justify-start text-white/70 hover:text-white hover:bg-white/10">
                   Log In
                 </Button>
-                <Button className="bg-gradient-to-r from-primary to-secondary">
+                <Button className="bg-gradient-to-r from-indigo-500 to-rose-500 text-white">
                   Sign Up
                 </Button>
               </div>
