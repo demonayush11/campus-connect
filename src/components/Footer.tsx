@@ -115,6 +115,11 @@ const Footer = () => {
           <p className="text-white/60 text-sm mb-4 md:mb-0">
             © 2024 campusConnect. All rights reserved.
           </p>
+
+          <p className="text-white/60 text-sm mb-4 md:mb-0">
+  made with  <span className="text-red-500">❤️</span> by campusConnect
+</p>
+
           
           <div className="flex items-center space-x-6 text-sm">
             <a href="#" className="text-white/60 hover:text-indigo-300 transition-colors">
