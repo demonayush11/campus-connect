@@ -52,9 +52,9 @@ const FeaturesSection = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Everything You Need to{" "}
+          
             <span className="bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300 bg-clip-text text-transparent">
-              Connect & Thrive
+                Everything You Need to{" "} Connect & Thrive
             </span>
           </h2>
           <p className="text-lg text-white/60 max-w-2xl mx-auto">

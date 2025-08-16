@@ -54,11 +54,11 @@ const CTASection = () => {
           </motion.div>
 
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            Ready to{" "}
+            
             <span className="bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300 bg-clip-text text-transparent">
-              Transform
+             Ready to{" "} Transform Your Campus Experience?
             </span>{" "}
-            Your Campus Experience?
+            
           </h2>
 
           <p className="text-lg md:text-xl text-white/60 mb-10 max-w-2xl mx-auto leading-relaxed">
@@ -84,7 +84,7 @@ const CTASection = () => {
             <Button
               size="lg"
               variant="outline"
-              className="text-lg px-8 py-6 rounded-xl border-2 hover:bg-muted/50"
+              className="text-lg px-8 py-6 rounded-xl border-2 hover:bg-muted/50 bg-gradient-to-r from-indigo-500 to-rose-500 hover:opacity-90 transition-opacity text-white "
             >
               Watch Demo
             </Button>

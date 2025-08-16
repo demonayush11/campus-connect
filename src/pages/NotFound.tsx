@@ -9,6 +9,23 @@ const NotFound = () => {
       "404 Error: User attempted to access non-existent route:",
       location.pathname
     );
+
+    // Change page title
+    document.title = "404 - Page Not Found | campusConnect";
+
+    // Change favicon
+    const favicon = document.querySelector<HTMLLinkElement>("link[rel~='icon']");
+    if (favicon) {
+      favicon.href = "https://i.ibb.co/NEW_ERROR_IMAGE.png";
+    }
+
+    // Reset title & favicon when user navigates away
+    return () => {
+      document.title = "campusConnect - Connect, Learn, Grow Together";
+      if (favicon) {
+        favicon.href = "https://i.ibb.co/RkBPPvcT/Chat-GPT-Image-Aug-16-2025-12-41-24-PM.png";
+      }
+    };
   }, [location.pathname]);
 
   return (

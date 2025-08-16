@@ -14,7 +14,8 @@ const Footer = () => {
     { icon: Twitter, href: "#", label: "Twitter" },
     { icon: Instagram, href: "#", label: "Instagram" },
     { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: Mail, href: "#", label: "Email" },
+  { icon: Mail, href: "#", label: "Email" }
+
   ];
 
   return (
@@ -36,7 +37,7 @@ const Footer = () => {
                 campusConnect
               </span>
             </motion.div>
-            
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -48,12 +49,13 @@ const Footer = () => {
               share knowledge, and grow together.
             </motion.p>
 
+            {/* Social Links */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="flex space-x-4"
+              className="flex gap-4"
             >
               {socialLinks.map((social, index) => (
                 <motion.a
@@ -61,10 +63,10 @@ const Footer = () => {
                   href={social.href}
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-10 h-10 bg-card border border-border rounded-lg flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-200"
+                  className="h-12 w-12 flex items-center justify-center text-center rounded-lg border border-white/[0.08] bg-white/[0.03] hover:bg-white/[0.06] hover:shadow-xl group transition-all duration-300"
                   aria-label={social.label}
                 >
-                  <social.icon className="w-4 h-4" />
+                  <social.icon className="w-5 h-5 text-white group-hover:text-primary" />
                 </motion.a>
               ))}
             </motion.div>
