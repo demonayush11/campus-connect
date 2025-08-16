@@ -24,18 +24,17 @@
 ## 💻 Getting Started
 
 You can edit and run this project in multiple ways.
-
+<!-- 
 ### **1. Use the Online Editor**
-- Open your project link in the editor: [Project Link](https://your-project-url.com)  
-- Changes are auto-saved and reflected immediately.
+<!-- - Open your project link in the editor: [Project Link](https://your-project-url.com)   -->
+- Changes are auto-saved and reflected immediately. -->
 
 ### **2. Local Development**
 Clone the repository and start developing locally.
 
 ```sh
 # Step 1: Clone the repository
-git clone <YOUR_GIT_URL>
-
+git clone https://github.com/demonayush11/campus-connect.git
 # Step 2: Navigate to the project folder
 cd campus-connect
 
