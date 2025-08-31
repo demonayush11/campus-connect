@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Menu, X, Users, MessageCircle, Star } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Menu, X, Users } from "lucide-react";
+import { HoverButton } from "@/components/ui/hover-glow-button";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -50,13 +50,21 @@ const Navbar = () => {
           {/* Desktop CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             <Link to="/login">
-              <Button variant="ghost" className="text-white/70 hover:text-white hover:bg-white/10">
+              <HoverButton
+                backgroundColor="transparent"
+                hoverTextColor="#FFFFFF"
+              >
                 Log In
-              </Button>
+              </HoverButton>
             </Link>
-            <Button className="bg-gradient-to-r from-indigo-500 to-rose-500 hover:opacity-90 transition-opacity text-white">
-              Sign Up
-            </Button>
+            <Link to="/signup">
+              <HoverButton
+                glowColor="#FF6B6B"
+                backgroundColor="#6366F1"
+              >
+                Sign Up
+              </HoverButton>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -94,13 +102,22 @@ const Navbar = () => {
               ))}
               <div className="flex flex-col space-y-2 pt-4">
                 <Link to="/login">
-                  <Button variant="ghost" className="w-full justify-start text-white/70 hover:text-white hover:bg-white/10">
+                  <HoverButton
+                    className="w-full justify-start"
+                    backgroundColor="transparent"
+                    hoverTextColor="#FFFFFF"
+                  >
                     Log In
-                  </Button>
+                  </HoverButton>
                 </Link>
-                <Button className="bg-gradient-to-r from-indigo-500 to-rose-500 text-white">
-                  Sign Up
-                </Button>
+                <Link to="/signup">
+                  <HoverButton
+                     glowColor="#FF6B6B"
+                     backgroundColor="#6366F1"
+                  >
+                    Sign Up
+                  </HoverButton>
+                </Link>
               </div>
             </div>
           </motion.div>

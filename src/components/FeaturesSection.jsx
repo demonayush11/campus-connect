@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Users, MessageCircle, Calendar, Star, Shield, Zap } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { GlowCard } from "@/components/ui/spotlight-card";
 
 const FeaturesSection = () => {
   const features = [
@@ -8,37 +8,37 @@ const FeaturesSection = () => {
       icon: Users,
       title: "Connect Across Years",
       description: "Bridge the gap between seniors and juniors with our smart matching system based on interests, majors, and career goals.",
-      gradient: "from-primary to-primary-glow",
+      glowColor: "purple",
     },
     {
       icon: MessageCircle,
       title: "Mentorship Hub",
       description: "Find mentors and mentees easily. Share experiences, get advice, and build lasting relationships that matter.",
-      gradient: "from-secondary to-blue-400",
+      glowColor: "blue",
     },
     {
       icon: Calendar,
       title: "Campus Events",
       description: "Discover and organize campus events, study groups, and social activities. Never miss out on what's happening.",
-      gradient: "from-accent to-green-400",
+      glowColor: "green",
     },
     {
       icon: Star,
       title: "Skill Exchange",
       description: "Trade skills and knowledge with fellow students. Teach what you know, learn what you need.",
-      gradient: "from-yellow-500 to-orange-500",
+      glowColor: "orange",
     },
     {
       icon: Shield,
       title: "Safe Environment",
       description: "Verified student-only platform with robust privacy controls and community guidelines for a safe experience.",
-      gradient: "from-red-500 to-pink-500",
+      glowColor: "red",
     },
     {
       icon: Zap,
       title: "Career Boost",
       description: "Get insights into career paths, internships, and job opportunities from students who've been there.",
-      gradient: "from-purple-500 to-indigo-500",
+      glowColor: "purple",
     },
   ];
 
@@ -52,9 +52,8 @@ const FeaturesSection = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-          
             <span className="bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300 bg-clip-text text-transparent">
-                Everything You Need to{" "} Connect & Thrive
+              Everything You Need to Connect & Thrive
             </span>
           </h2>
           <p className="text-lg text-white/60 max-w-2xl mx-auto">
@@ -71,21 +70,26 @@ const FeaturesSection = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card className="h-full hover:shadow-xl transition-all duration-300 border-white/[0.08] bg-white/[0.03] group hover:scale-105 hover:bg-white/[0.06]">
-                <CardHeader>
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${feature.gradient} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                    <feature.icon className="w-6 h-6 text-white" />
+              <GlowCard
+                key={feature.title}
+                className="h-full transition-transform duration-300 hover:scale-105"
+                glowColor={feature.glowColor}
+                customSize={true}
+              >
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-white/[0.1] flex items-center justify-center">
+                      <feature.icon className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-white">
+                      {feature.title}
+                    </h3>
                   </div>
-                  <CardTitle className="text-xl font-semibold text-white">
-                    {feature.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-white/60 leading-relaxed">
+                  <p className="text-white/60 leading-relaxed">
                     {feature.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
+                  </p>
+                </div>
+              </GlowCard>
             </motion.div>
           ))}
         </div>

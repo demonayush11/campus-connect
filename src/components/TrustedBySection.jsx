@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { GlowCard } from "@/components/ui/spotlight-card";
 
 const TrustedBySection = () => {
   const universities = [
@@ -13,6 +14,7 @@ const TrustedBySection = () => {
           />
         </span>
       ),
+      glowColor: "blue",
     },
     { 
       name: "IIT Kharagpur",  
@@ -25,6 +27,7 @@ const TrustedBySection = () => {
           />
         </span>
       ),
+      glowColor: "orange",
     },
     { 
       name: "NIT Jamshedpur",
@@ -37,6 +40,7 @@ const TrustedBySection = () => {
           />
         </span>
       ),
+      glowColor: "purple",
     },
     { 
       name: "VIT", 
@@ -49,6 +53,7 @@ const TrustedBySection = () => {
           />
         </span>
       ),
+      glowColor: "blue",
     },
     { 
       name: "LPU",
@@ -61,6 +66,7 @@ const TrustedBySection = () => {
           />
         </span>
       ),
+      glowColor: "red",
     },
     { 
       name: "KIIT", 
@@ -73,6 +79,7 @@ const TrustedBySection = () => {
           />
         </span>
       ),
+      glowColor: "purple",
     },
   ];
 
@@ -92,17 +99,23 @@ const TrustedBySection = () => {
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
           {universities.map((university, index) => (
-            <motion.div
+            <GlowCard
               key={university.name}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="h-full flex flex-col items-center justify-center text-center hover:shadow-xl transition-all duration-300 border-white/[0.08] bg-white/[0.03] group hover:scale-105 hover:bg-white/[0.06]"
+              className="h-full p-4 transition-transform duration-300 hover:scale-105"
+              glowColor={university.glowColor}
+              customSize={true}
             >
-              <div className="mb-2 flex items-center justify-center">{university.logo}</div>
-              <span className="text-sm font-semibold text-white/80">{university.name}</span>
-            </motion.div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="h-full flex flex-col items-center justify-center text-center"
+              >
+                <div className="mb-2 flex items-center justify-center h-12 w-12">{university.logo}</div>
+                <span className="text-sm font-semibold text-white/80 mt-2">{university.name}</span>
+              </motion.div>
+            </GlowCard>
           ))}
         </div>
 

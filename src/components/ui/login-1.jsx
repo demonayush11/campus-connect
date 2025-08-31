@@ -3,15 +3,10 @@
 
 import * as React from "react";
 import {
-  Children,
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
   useState,
 } from "react";
 import { Instagram, Linkedin, Facebook } from "lucide-react";
+import { HoverButton } from "@/components/ui/hover-glow-button";
 
 const AppInput = (props) => {
   const { label, placeholder, icon, ...rest } = props;
@@ -174,12 +169,13 @@ const Page = () => {
                 Forgot your password?
               </a>
               <div className="flex gap-4 justify-center items-center">
-                <button className="group/button relative inline-flex justify-center items-center overflow-hidden rounded-md bg-[var(--color-border)] px-4 py-1.5 text-xs font-normal text-white transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg hover:shadow-[var(--color-text-primary)] cursor-pointer">
-                  <span className="text-sm px-2 py-1">Sign In</span>
-                  <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
-                    <div className="relative h-full w-8 bg-white/20" />
-                  </div>
-                </button>
+                <HoverButton
+                  glowColor="#a855f7"
+                  backgroundColor="#6366F1"
+                  className="text-sm px-2 py-1"
+                >
+                  Sign In
+                </HoverButton>
               </div>
             </form>
           </div>

@@ -1,4 +1,4 @@
-import { SignInPage } from "@/components/ui/sign-in";
+import { SignUpPage } from "@/components/ui/sign-up";
 import { useNavigate } from "react-router-dom";
 
 const sampleTestimonials = [
@@ -22,42 +22,37 @@ const sampleTestimonials = [
   },
 ];
 
-const LoginPage = () => {
+const SignUp = () => {
   const navigate = useNavigate();
 
-  const handleSignIn = (event) => {
+  const handleSignUp = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const data = Object.fromEntries(formData.entries());
-    console.log("Sign In submitted:", data);
-    alert(`Sign In Submitted! Check the browser console for form data.`);
+    console.log("Sign Up submitted:", data);
+    alert(`Sign Up Submitted! Check the browser console for form data.`);
   };
 
-  const handleGoogleSignIn = () => {
+  const handleGoogleSignUp = () => {
     console.log("Continue with Google clicked");
     alert("Continue with Google clicked");
   };
   
-  const handleResetPassword = () => {
-    alert("Reset Password clicked");
-  }
-
-  const handleCreateAccount = () => {
-    navigate("/signup");
+  const handleSignIn = () => {
+    navigate("/login");
   }
 
   return (
     <div className="dark bg-background text-foreground">
-      <SignInPage
+      <SignUpPage
         heroImageSrc="https://images.unsplash.com/photo-1642615835477-d303d7dc9ee9?w=2160&q=80"
         testimonials={sampleTestimonials}
+        onSignUp={handleSignUp}
+        onGoogleSignUp={handleGoogleSignUp}
         onSignIn={handleSignIn}
-        onGoogleSignIn={handleGoogleSignIn}
-        onResetPassword={handleResetPassword}
-        onCreateAccount={handleCreateAccount}
       />
     </div>
   );
 };
 
-export default LoginPage;
+export default SignUp;

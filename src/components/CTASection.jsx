@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { HoverButton } from "@/components/ui/hover-glow-button";
 
 const CTASection = () => {
   return (
@@ -73,21 +73,23 @@ const CTASection = () => {
             transition={{ delay: 0.2 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity text-lg px-8 py-6 rounded-xl group"
+            <HoverButton
+              glowColor="#a855f7"
+              backgroundColor="#6366F1"
+              className="text-lg rounded-xl group"
             >
               Get Started Free
-              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
+              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform inline" />
+            </HoverButton>
             
-            <Button
-              size="lg"
-              variant="outline"
-              className="text-lg px-8 py-6 rounded-xl border-2 hover:bg-muted/50 bg-gradient-to-r from-indigo-500 to-rose-500 hover:opacity-90 transition-opacity text-white "
+            <HoverButton
+              backgroundColor="transparent"
+              glowColor="#8b5cf6"
+              className="text-lg rounded-xl border-2 border-white/20"
+              hoverTextColor="#FFF"
             >
               Watch Demo
-            </Button>
+            </HoverButton>
           </motion.div>
 
           <motion.div
