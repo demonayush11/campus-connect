@@ -30,7 +30,7 @@ const TestimonialCard = ({ testimonial, delay }) => (
 // --- MAIN COMPONENT ---
 
 export const SignInPage = ({
-  title = <span className="font-light text-foreground tracking-tighter">Welcome</span>,
+  title = <span className="bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300 bg-clip-text text-transparent">Welcome</span>,
   description = "Access your account and continue your journey with us",
   heroImageSrc,
   testimonials = [],
@@ -42,27 +42,27 @@ export const SignInPage = ({
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="h-[100dvh] flex flex-col md:flex-row font-geist w-[100dvw]">
+    <div className="h-full flex flex-col md:flex-row font-geist w-full">
       {/* Left column: sign-in form */}
       <section className="flex-1 flex items-center justify-center p-8">
         <div className="w-full max-w-md">
           <div className="flex flex-col gap-6">
-            <h1 className="animate-element animate-delay-100 text-4xl md:text-5xl font-semibold leading-tight">{title}</h1>
-            <p className="animate-element animate-delay-200 text-muted-foreground">{description}</p>
+            <h1 className="text-[1.875rem] font-semibold leading-[2.375rem] text-richblack-5 mb-[-10]">{title}</h1>
+            <p className=" text-[1.125rem] leading-[1.625rem]">{description}</p>
 
             <form className="space-y-5" onSubmit={onSignIn}>
               <div className="animate-element animate-delay-300">
-                <label className="text-sm font-medium text-muted-foreground">Email Address</label>
+                <label className="text-sm font-medium text-muted-foreground mb-10">Email Address<sup className="text-pink-200">*</sup></label>
                 <GlowCard customSize={true} glowColor="purple" className="p-0.5">
-                  <input name="email" type="email" placeholder="Enter your email address" className="w-full bg-transparent text-sm p-4 rounded-2xl focus:outline-none" />
+                  <input name="email" type="email" placeholder="Enter your email address" className="form-style w-full bg-transparent" />
                 </GlowCard>
               </div>
 
               <div className="animate-element animate-delay-400">
-                <label className="text-sm font-medium text-muted-foreground">Password</label>
+                <label className="text-sm font-medium text-muted-foreground">Password<sup className="text-pink-200">*</sup></label>
                 <GlowCard customSize={true} glowColor="purple" className="p-0.5">
                   <div className="relative">
-                    <input name="password" type={showPassword ? 'text' : 'password'} placeholder="Enter your password" className="w-full bg-transparent text-sm p-4 pr-12 rounded-2xl focus:outline-none" />
+                    <input name="password" type={showPassword ? 'text' : 'password'} placeholder="Enter your password" className="form-style w-full bg-transparent" />
                     <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute inset-y-0 right-3 flex items-center">
                       {showPassword ? <EyeOff className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors" /> : <Eye className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors" />}
                     </button>
@@ -101,18 +101,7 @@ export const SignInPage = ({
       </section>
 
       {/* Right column: hero image + testimonials */}
-      {heroImageSrc && (
-        <section className="hidden md:block flex-1 relative p-4">
-          <div className="animate-slide-right animate-delay-300 absolute inset-4 rounded-3xl bg-cover bg-center" style={{ backgroundImage: `url(${heroImageSrc})` }}></div>
-          {testimonials.length > 0 && (
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-4 px-8 w-full justify-center">
-              <TestimonialCard testimonial={testimonials[0]} delay="animate-delay-1000" />
-              {testimonials[1] && <div className="hidden xl:flex"><TestimonialCard testimonial={testimonials[1]} delay="animate-delay-1200" /></div>}
-              {testimonials[2] && <div className="hidden 2xl:flex"><TestimonialCard testimonial={testimonials[2]} delay="animate-delay-1400" /></div>}
-            </div>
-          )}
-        </section>
-      )}
+     
     </div>
   );
 };

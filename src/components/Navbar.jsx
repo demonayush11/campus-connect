@@ -60,7 +60,7 @@ const Navbar = () => {
             <Link to="/signup">
               <HoverButton
                 glowColor="#FF6B6B"
-                backgroundColor="#6366F1"
+                backgroundColor="transparent"
               >
                 Sign Up
               </HoverButton>
@@ -113,7 +113,8 @@ const Navbar = () => {
                 <Link to="/signup">
                   <HoverButton
                      glowColor="#FF6B6B"
-                     backgroundColor="#6366F1"
+                      hoverTextColor="#6366F1"
+                     backgroundColor="transparent"
                   >
                     Sign Up
                   </HoverButton>

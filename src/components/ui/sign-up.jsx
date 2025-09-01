@@ -24,7 +24,7 @@ const TestimonialCard = ({ testimonial, delay }) => (
 );
 
 export const SignUpPage = ({
-  title = <span className="font-light text-foreground tracking-tighter">Create an Account</span>,
+  title = <span className="bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300 bg-clip-text text-transparent">Create an Account</span>,
   description = "Join our community and start your journey with us",
   heroImageSrc,
   testimonials = [],
@@ -35,26 +35,26 @@ export const SignUpPage = ({
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="h-[100dvh] flex flex-col md:flex-row font-geist w-[100dvw]">
+    <div className="h-full flex flex-col md:flex-row font-geist w-[100dvw]">
       {/* Left column: sign-up form */}
       <section className="flex-1 flex items-center justify-center p-8">
         <div className="w-full max-w-md">
           <div className="flex flex-col gap-6">
-            <h1 className="animate-element animate-delay-100 text-4xl md:text-5xl font-semibold leading-tight">{title}</h1>
-            <p className="animate-element animate-delay-200 text-muted-foreground">{description}</p>
+            <h1 className="text-[1.875rem] font-semibold leading-[2.375rem] text-richblack-5">{title}</h1>
+            <p className=" text-[1.125rem] leading-[1.625rem]">{description}</p>
 
             <form className="space-y-5" onSubmit={onSignUp}>
               <div className="animate-element animate-delay-300">
-                <label className="text-sm font-medium text-muted-foreground">Name</label>
+                <label className="mb-1 text-[0.875rem] leading-[1.375rem] text-text-[rgb(241,242,255)]">Name</label>
                 <GlowCard customSize={true} glowColor="purple" className="p-0.5">
-                  <input name="name" type="text" placeholder="Enter your name" className="w-full bg-transparent text-sm p-4 rounded-2xl focus:outline-none" />
+                  <input name="name" type="text" placeholder="Enter your name" className="form-style w-full bg-transparent" />
                 </GlowCard>
               </div>
 
               <div className="animate-element animate-delay-300">
                 <label className="text-sm font-medium text-muted-foreground">Email Address</label>
                 <GlowCard customSize={true} glowColor="purple" className="p-0.5">
-                  <input name="email" type="email" placeholder="Enter your email address" className="w-full bg-transparent text-sm p-4 rounded-2xl focus:outline-none" />
+                  <input name="email" type="email" placeholder="Enter your email address" className="form-style w-full bg-transparent" />
                 </GlowCard>
               </div>
 
@@ -62,7 +62,7 @@ export const SignUpPage = ({
                 <label className="text-sm font-medium text-muted-foreground">Password</label>
                 <GlowCard customSize={true} glowColor="purple" className="p-0.5">
                   <div className="relative">
-                    <input name="password" type={showPassword ? 'text' : 'password'} placeholder="Enter your password" className="w-full bg-transparent text-sm p-4 pr-12 rounded-2xl focus:outline-none" />
+                    <input name="password" type={showPassword ? 'text' : 'password'} placeholder="Enter your password" className="form-style w-full bg-transparent" />
                     <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute inset-y-0 right-3 flex items-center">
                       {showPassword ? <EyeOff className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors" /> : <Eye className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors" />}
                     </button>
