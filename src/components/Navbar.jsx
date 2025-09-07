@@ -10,7 +10,7 @@ const Navbar = () => {
   const navItems = [
     { label: "Features", href: "#features" },
     { label: "About", href: "#about" },
-    { label: "Contact", href: "#contact" },
+    { label: "Contact Us", to: "/contact-us" },
   ];
 
   return (
@@ -34,16 +34,28 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item, index) => (
-              <motion.a
+              <motion.div
                 key={item.label}
-                href={item.href}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="text-white/70 hover:text-white transition-colors duration-200 font-medium"
               >
-                {item.label}
-              </motion.a>
+                {item.href ? (
+                  <a
+                    href={item.href}
+                    className="text-white/70 hover:text-white transition-colors duration-200 font-medium"
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    to={item.to}
+                    className="text-white/70 hover:text-white transition-colors duration-200 font-medium"
+                  >
+                    {item.label}
+                  </Link>
+                )}
+              </motion.div>
             ))}
           </div>
 
@@ -90,16 +102,27 @@ const Navbar = () => {
             className="md:hidden py-4 border-t border-border"
           >
             <div className="flex flex-col space-y-4">
-              {navItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.label}
-                </a>
-              ))}
+              {navItems.map((item) =>
+                item.href ? (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className="text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.label}
+                    to={item.to}
+                    className="text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                )
+              )}
               <div className="flex flex-col space-y-2 pt-4">
                 <Link to="/login">
                   <HoverButton

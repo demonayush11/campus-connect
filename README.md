@@ -2,6 +2,11 @@
 
 **Connect, Learn, Grow Together** – CampusConnect is the ultimate social platform for college students to connect across years, find mentors, and build meaningful relationships.
 
+[![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)](https://reactjs.org/)
+[![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+
 ---
 
 ## 🌐 Project Info
@@ -24,12 +29,14 @@
 ## 💻 Getting Started
 
 You can edit and run this project in multiple ways.
+
 <!-- 
 ### **1. Use the Online Editor**
 <!-- - Open your project link in the editor: [Project Link](https://your-project-url.com)   -->
 - Changes are auto-saved and reflected immediately. -->
 
 ### **2. Local Development**
+
 Clone the repository and start developing locally.
 
 ```sh
@@ -43,3 +50,16 @@ npm install
 
 # Step 4: Start the development server
 npm run dev
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a pull request or open an issue.
+
+---
+
+## 📝 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
