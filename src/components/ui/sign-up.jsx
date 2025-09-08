@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 import { GlowCard } from '@/components/ui/spotlight-card';
+import { HoverButton } from '@/components/ui/hover-glow-button';
 
 const GoogleIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 48 48">
@@ -46,21 +47,21 @@ export const SignUpPage = ({
             <form className="space-y-5" onSubmit={onSignUp}>
               <div className="animate-element animate-delay-300">
                 <label className="mb-1 text-[0.875rem] leading-[1.375rem] text-text-[rgb(241,242,255)]">Name</label>
-                <GlowCard customSize={true} glowColor="purple" className="p-0.5">
+                <GlowCard customSize={true} className="p-0.5">
                   <input name="name" type="text" placeholder="Enter your name" className="form-style w-full bg-transparent" />
                 </GlowCard>
               </div>
 
               <div className="animate-element animate-delay-300">
                 <label className="text-sm font-medium text-muted-foreground">Email Address</label>
-                <GlowCard customSize={true} glowColor="purple" className="p-0.5">
+                <GlowCard customSize={true} className="p-0.5">
                   <input name="email" type="email" placeholder="Enter your email address" className="form-style w-full bg-transparent" />
                 </GlowCard>
               </div>
 
               <div className="animate-element animate-delay-400">
                 <label className="text-sm font-medium text-muted-foreground">Password</label>
-                <GlowCard customSize={true} glowColor="purple" className="p-0.5">
+                <GlowCard customSize={true} className="p-0.5">
                   <div className="relative">
                     <input name="password" type={showPassword ? 'text' : 'password'} placeholder="Enter your password" className="form-style w-full bg-transparent" />
                     <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute inset-y-0 right-3 flex items-center">
@@ -70,9 +71,9 @@ export const SignUpPage = ({
                 </GlowCard>
               </div>
 
-              <button type="submit" className="animate-element animate-delay-600 w-full rounded-2xl bg-primary py-4 font-medium text-primary-foreground hover:bg-primary/90 transition-colors">
+              <HoverButton type="submit" className="animate-element animate-delay-600 w-full rounded-2xl py-4 font-medium transition-colors border border-border">
                 Sign Up
-              </button>
+              </HoverButton>
             </form>
 
             <div className="animate-element animate-delay-700 relative flex items-center justify-center">
@@ -80,10 +81,10 @@ export const SignUpPage = ({
               <span className="px-4 text-sm text-muted-foreground bg-background absolute">Or continue with</span>
             </div>
 
-            <button onClick={onGoogleSignUp} className="animate-element animate-delay-800 w-full flex items-center justify-center gap-3 border border-border rounded-2xl py-4 hover:bg-secondary transition-colors">
+            <HoverButton onClick={onGoogleSignUp} className="animate-element animate-delay-800 w-full flex items-center justify-center gap-3 border border-border rounded-2xl py-4 transition-colors">
                 <GoogleIcon />
                 Continue with Google
-            </button>
+            </HoverButton>
 
             <p className="animate-element animate-delay-900 text-center text-sm text-muted-foreground">
               Already have an account? <a href="#" onClick={(e) => { e.preventDefault(); onSignIn?.(); }} className="text-violet-400 hover:underline transition-colors">Sign In</a>

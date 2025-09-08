@@ -24,7 +24,10 @@ const SignUp = () => {
   return (
     <div className="dark bg-[#030303] text-foreground">
       <SignUpPage
-/>
+        onSignUp={handleSignUp}
+        onGoogleSignUp={handleGoogleSignUp}
+        onSignIn={handleSignIn}
+      />
     </div>
   );
 };

@@ -125,7 +125,7 @@ const GlowCard = ({
         calc(var(--spotlight-size) * 0.5) calc(var(--spotlight-size) * 0.5) at
         calc(var(--x, 0) * 1px)
         calc(var(--y, 0) * 1px),
-        hsl(0 100% 100% / var(--border-light-opacity, 1)), transparent 100%
+        hsl(0 100% 100% / var(--border-light-opacity, 0)), transparent 100%
       );
     }
     

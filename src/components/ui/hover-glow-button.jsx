@@ -6,9 +6,9 @@ const HoverButton = ({
   className = '', 
   disabled = false,
   glowColor = '#00ffc3',
-  backgroundColor = '#111827', // gray-900 equivalent
   textColor = '#ffffff',
-  hoverTextColor = '#67e8f9' // cyan-300 equivalent
+  hoverTextColor = '#67e8f9', // cyan-300 equivalent
+  type = 'button'
 }) => {
   const buttonRef = useRef(null);
   const [glowPosition, setGlowPosition] = useState({ x: 50, y: 50 });
@@ -39,15 +39,15 @@ const HoverButton = ({
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      type={type}
       className={`
-        relative inline-block px-8 py-4 border-none 
+        relative px-8 py-4 border-none 
         cursor-pointer overflow-hidden transition-colors duration-300 
         text-xl rounded-lg z-10 font-sans
         ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
         ${className}
       `}
       style={{
-        backgroundColor: backgroundColor,
         color: isHovered ? hoverTextColor : textColor,
       }}
     >
@@ -62,12 +62,12 @@ const HoverButton = ({
           left: `${glowPosition.x}px`,
           top: `${glowPosition.y}px`,
           background: `radial-gradient(circle, ${glowColor} 10%, transparent 70%)`,
-          zIndex: 0,
+          zIndex: -1,
         }}
       />
       
       {/* Button content */}
-      <span className="relative z-10">{children}</span>
+      <div className="relative z-10 flex items-center justify-center gap-3">{children}</div>
     </button>
   );
 };
