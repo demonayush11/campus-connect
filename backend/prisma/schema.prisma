@@ -1,0 +1,165 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  junior
+  senior
+  alumni
+  admin
+}
+
+enum ChatRequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+model User {
+  id         String   @id @default(uuid())
+  name       String
+  email      String   @unique
+  password   String
+  role       Role     @default(junior)
+  batch      String?
+  department String?
+  bio        String?
+  skills     String[]
+  github     String?
+  linkedin   String?
+  profilePic String?
+  isVerified Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relations
+  mentoredSessions Session[]      @relation("MentorSessions")
+  attendedSessions Session[]      @relation("SessionAttendees")
+
+  createdGroups    Group[]        @relation("GroupCreator")
+  joinedGroups     Group[]        @relation("GroupMembers")
+
+  posts            Post[]         @relation("UserPosts")
+  comments         Comment[]      @relation("UserComments")
+
+  notifications    Notification[]
+
+  // New relations
+  achievements     Achievement[]
+
+  sentRequests     ChatRequest[]  @relation("SentRequests")
+  receivedRequests ChatRequest[]  @relation("ReceivedRequests")
+  sentMessages     Message[]      @relation("SentMessages")
+}
+
+model Achievement {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  year        Int?
+  category    String   @default("Other")
+  createdAt   DateTime @default(now())
+
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ChatRequest {
+  id         String            @id @default(uuid())
+  status     ChatRequestStatus @default(PENDING)
+  message    String?
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+
+  senderId   String
+  sender     User              @relation("SentRequests", fields: [senderId], references: [id], onDelete: Cascade)
+
+  receiverId String
+  receiver   User              @relation("ReceivedRequests", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  messages   Message[]
+}
+
+model Message {
+  id            String      @id @default(uuid())
+  content       String
+  createdAt     DateTime    @default(now())
+
+  chatRequestId String
+  chatRequest   ChatRequest @relation(fields: [chatRequestId], references: [id], onDelete: Cascade)
+
+  senderId      String
+  sender        User        @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+}
+
+model Session {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  date        DateTime
+  duration    Int
+  link        String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  mentorId    String
+  mentor      User     @relation("MentorSessions", fields: [mentorId], references: [id], onDelete: Cascade)
+
+  attendees   User[]   @relation("SessionAttendees")
+}
+
+model Group {
+  id          String   @id @default(uuid())
+  name        String
+  description String
+  subject     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  creatorId   String
+  creator     User     @relation("GroupCreator", fields: [creatorId], references: [id], onDelete: Cascade)
+
+  members     User[]   @relation("GroupMembers")
+}
+
+model Post {
+  id        String    @id @default(uuid())
+  title     String
+  content   String
+  tags      String[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  authorId  String
+  author    User      @relation("UserPosts", fields: [authorId], references: [id], onDelete: Cascade)
+
+  comments  Comment[]
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  content   String
+  createdAt DateTime @default(now())
+
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  authorId  String
+  author    User     @relation("UserComments", fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  message   String
+  type      String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
