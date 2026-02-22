@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // ─── Base Instance ─────────────────────────────────────────────────────────────
 const api = axios.create({
-    baseURL: 'https://campus-connect-xbc9.onrender.com',
+    baseURL: 'https://campus-connect-xbc9.onrender.com/api',
     headers: { 'Content-Type': 'application/json' },
 });
 
