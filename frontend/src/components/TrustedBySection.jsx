@@ -3,78 +3,78 @@ import { GlowCard } from "@/components/ui/spotlight-card";
 
 const TrustedBySection = () => {
   const universities = [
-    { 
-      name: "IIT Madras", 
+    {
+      name: "IIT Madras",
       logo: (
         <span className="text-4xl flex items-center justify-center">
-          <img 
-            src="https://i.ibb.co/4wSzkq35/Chat-GPT-Image-Aug-16-2025-02-04-16-PM.png" 
-            alt="IIT Madras Logo" 
+          <img
+            src="https://i.ibb.co/4wSzkq35/Chat-GPT-Image-Aug-16-2025-02-04-16-PM.png"
+            alt="IIT Madras Logo"
             className="w-12 h-12 object-contain"
           />
         </span>
       ),
       glowColor: "blue",
     },
-    { 
-      name: "IIT Kharagpur",  
+    {
+      name: "IIT Kharagpur",
       logo: (
         <span className="text-4xl flex items-center justify-center">
-          <img 
-            src="https://i.ibb.co/7JmnLjS5/da239e12-1bdb-42da-9926-0f09f3d1051c.png" 
-            alt="IIT Kharagpur Logo" 
+          <img
+            src="https://i.ibb.co/7JmnLjS5/da239e12-1bdb-42da-9926-0f09f3d1051c.png"
+            alt="IIT Kharagpur Logo"
             className="w-12 h-12 object-contain"
           />
         </span>
       ),
       glowColor: "orange",
     },
-    { 
+    {
       name: "NIT Jamshedpur",
       logo: (
         <span className="text-4xl flex items-center justify-center">
-          <img 
-            src="https://i.ibb.co/VYGJMnLv/download-5.jpg" 
-            alt="NIT Jamshedpur Logo" 
+          <img
+            src="https://i.ibb.co/VYGJMnLv/download-5.jpg"
+            alt="NIT Jamshedpur Logo"
             className="w-12 h-12 object-contain"
           />
         </span>
       ),
       glowColor: "purple",
     },
-    { 
-      name: "VIT", 
+    {
+      name: "VIT",
       logo: (
         <span className="text-4xl flex items-center justify-center">
-          <img 
-            src="https://i.ibb.co/LXnS9Cj0/download-3.png" 
-            alt="VIT Logo" 
+          <img
+            src="https://i.ibb.co/LXnS9Cj0/download-3.png"
+            alt="VIT Logo"
             className="w-12 h-12 object-contain"
           />
         </span>
       ),
       glowColor: "blue",
     },
-    { 
+    {
       name: "LPU",
       logo: (
         <span className="text-4xl flex items-center justify-center">
-          <img 
-            src="https://i.ibb.co/FbWbx7bM/images.png" 
-            alt="LPU Logo" 
+          <img
+            src="https://i.ibb.co/FbWbx7bM/images.png"
+            alt="LPU Logo"
             className="w-12 h-12 object-contain"
           />
         </span>
       ),
       glowColor: "red",
     },
-    { 
-      name: "KIIT", 
+    {
+      name: "KIIT",
       logo: (
         <span className="text-4xl flex items-center justify-center">
-          <img 
-            src="https://i.ibb.co/Gj4Jt0c/8aa65933-1e33-4438-ba91-6de054f4bca4.png" 
-            alt="KIIT Logo" 
+          <img
+            src="https://i.ibb.co/Gj4Jt0c/8aa65933-1e33-4438-ba91-6de054f4bca4.png"
+            alt="KIIT Logo"
             className="w-12 h-12 object-contain"
           />
         </span>
@@ -97,11 +97,11 @@ const TrustedBySection = () => {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 md:gap-8 items-center">
           {universities.map((university, index) => (
             <GlowCard
               key={university.name}
-              className="h-full p-4 transition-transform duration-300 hover:scale-105"
+              className="h-full p-3 sm:p-4 transition-transform duration-300 hover:scale-105"
               glowColor={university.glowColor}
               customSize={true}
             >
@@ -112,8 +112,8 @@ const TrustedBySection = () => {
                 transition={{ delay: index * 0.1 }}
                 className="h-full flex flex-col items-center justify-center text-center"
               >
-                <div className="mb-2 flex items-center justify-center h-12 w-12">{university.logo}</div>
-                <span className="text-sm font-semibold text-white/80 mt-2">{university.name}</span>
+                <div className="mb-2 flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12">{university.logo}</div>
+                <span className="text-[10px] sm:text-xs md:text-sm font-semibold text-white/80 mt-2">{university.name}</span>
               </motion.div>
             </GlowCard>
           ))}

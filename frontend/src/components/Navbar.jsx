@@ -84,47 +84,50 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu */}
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden py-4 border-t border-border"
-          >
-            <div className="flex flex-col space-y-4">
-              {navItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="text-foreground hover:text-primary transition-colors duration-200 font-medium py-2"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.label}
-                </a>
-              ))}
-              <div className="flex flex-col space-y-2 pt-4">
-                <Link to="/login">
-                  <HoverButton
-                    className="w-full justify-start"
-                    backgroundColor="transparent"
-                    hoverTextColor="#FFFFFF"
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden py-6 border-t border-white/10 bg-[#0a0a0a]/95 backdrop-blur-xl rounded-b-2xl"
+            >
+              <div className="flex flex-col space-y-4 px-2">
+                {navItems.map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className="text-white/70 hover:text-white transition-colors duration-200 font-medium py-3 px-4 rounded-xl hover:bg-white/5"
+                    onClick={() => setIsOpen(false)}
                   >
-                    Log In
-                  </HoverButton>
-                </Link>
-                <Link to="/signup">
-                  <HoverButton
-                    glowColor="#FF6B6B"
-                    hoverTextColor="#6366F1"
-                    backgroundColor="transparent"
-                  >
-                    Sign Up
-                  </HoverButton>
-                </Link>
+                    {item.label}
+                  </a>
+                ))}
+                <div className="flex flex-col space-y-3 pt-6 border-t border-white/5 px-4">
+                  <Link to="/login" onClick={() => setIsOpen(false)}>
+                    <HoverButton
+                      className="w-full h-12"
+                      backgroundColor="transparent"
+                      hoverTextColor="#FFFFFF"
+                    >
+                      Log In
+                    </HoverButton>
+                  </Link>
+                  <Link to="/signup" onClick={() => setIsOpen(false)}>
+                    <HoverButton
+                      className="w-full h-12"
+                      glowColor="#FF6B6B"
+                      hoverTextColor="#FFFFFF"
+                      backgroundColor="rgba(255,107,107,0.1)"
+                    >
+                      Sign Up
+                    </HoverButton>
+                  </Link>
+                </div>
               </div>
-            </div>
-          </motion.div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </nav>
   );

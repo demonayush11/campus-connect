@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { GraduationCap, Plus, X, Calendar, Clock, Link2, Users, Loader2, LogIn } from "lucide-react";
+import { GraduationCap, Plus, X, Calendar, Clock, Link2, Users, Loader2, LogIn, Search } from "lucide-react";
 import AppNavbar from "@/components/AppNavbar";
 import { useAuth } from "@/context/AuthContext";
 import { sessionsApi } from "@/lib/api";
@@ -14,13 +14,28 @@ const Mentorship = () => {
     const [actionId, setActionId] = useState(null);
     const [form, setForm] = useState({ title: "", description: "", date: "", duration: "60", link: "" });
     const [error, setError] = useState("");
+    const [search, setSearch] = useState("");
 
-    const canCreate = user?.role === "senior" || user?.role === "alumni";
+    // 3rd/4th year students are seniors — check both role and academicYear
+    // so stale localStorage cache doesn't block them
+    const canCreate = user?.role === "senior" || user?.role === "alumni"
+        || (user?.academicYear != null && user.academicYear >= 3);
 
     const fetchSessions = () =>
         sessionsApi.getAll().then(setSessions).catch(console.error).finally(() => setLoading(false));
 
     useEffect(() => { fetchSessions(); }, []);
+
+    // Filter sessions by search query
+    const filteredSessions = sessions.filter((s) => {
+        if (!search.trim()) return true;
+        const q = search.toLowerCase();
+        return (
+            s.title?.toLowerCase().includes(q) ||
+            s.description?.toLowerCase().includes(q) ||
+            s.mentor?.name?.toLowerCase().includes(q)
+        );
+    });
 
     const handleCreate = async (e) => {
         e.preventDefault();
@@ -61,15 +76,31 @@ const Mentorship = () => {
             <AppNavbar />
             <div className="pt-24 pb-12 px-4 container mx-auto max-w-6xl">
                 {/* Header */}
-                <div className="flex items-center justify-between mb-8">
-                    <div>
-                        <h1 className="text-3xl font-bold text-white">Mentorship Hub</h1>
-                        <p className="text-white/50 mt-1">Live sessions by seniors & alumni</p>
+                <div className="mb-6">
+                    <h1 className="text-3xl font-bold text-white">Mentorship Hub</h1>
+                    <p className="text-white/50 mt-1">Live sessions by seniors &amp; alumni</p>
+                </div>
+                {/* Search + Create Row */}
+                <div className="flex items-center gap-3 mb-8">
+                    <div className="relative flex-1">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
+                        <input
+                            type="text"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                            placeholder="Search sessions by title, topic or mentor…"
+                            className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-white placeholder-white/20 focus:outline-none focus:border-indigo-500/40 transition-all text-sm"
+                        />
+                        {search && (
+                            <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white">
+                                <X className="w-4 h-4" />
+                            </button>
+                        )}
                     </div>
                     {canCreate && (
                         <button
                             onClick={() => setShowModal(true)}
-                            className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg font-medium hover:from-indigo-600 hover:to-purple-700 transition-all"
+                            className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg font-medium hover:from-indigo-600 hover:to-purple-700 transition-all whitespace-nowrap"
                         >
                             <Plus className="w-4 h-4" /> Create Session
                         </button>
@@ -81,14 +112,14 @@ const Mentorship = () => {
                     <div className="flex justify-center py-20">
                         <Loader2 className="w-8 h-8 text-indigo-400 animate-spin" />
                     </div>
-                ) : sessions.length === 0 ? (
+                ) : filteredSessions.length === 0 ? (
                     <div className="text-center py-20 text-white/30">
                         <GraduationCap className="w-12 h-12 mx-auto mb-3 opacity-30" />
-                        <p>No sessions yet. {canCreate && "Create the first one!"}</p>
+                        <p>{search ? `No sessions matching "${search}"` : (canCreate ? "No sessions yet. Create the first one!" : "No sessions yet.")}</p>
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                        {sessions.map((s) => {
+                        {filteredSessions.map((s) => {
                             const amAttending = s.attendees?.some((a) => a.id === user?.id);
                             const isMine = s.mentorId === user?.id;
                             const isPast = new Date(s.date) < new Date();

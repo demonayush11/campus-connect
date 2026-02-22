@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, GraduationCap, Trophy, MapPin, Code } from "lucide-react";
+import { Search, GraduationCap, MapPin, Code } from "lucide-react";
 import AppNavbar from "@/components/AppNavbar";
 import { usersApi } from "@/lib/api";
 import SeniorProfileModal from "@/components/SeniorProfileModal";
+import { yearLabel } from "@/lib/yearHelper";
 
 const roleColors = {
     senior: { badge: "bg-indigo-500/20 text-indigo-300 border-indigo-500/20", gradient: "from-indigo-400 to-purple-500" },
@@ -20,25 +21,20 @@ const Seniors = () => {
     const fetchSeniors = (q = "") => {
         setLoading(true);
         setError("");
-        // Try /seniors endpoint first, fall back to /users?role filter
-        usersApi.getSeniors(q ? { search: q } : {})
+        usersApi.getAll(q ? { search: q } : {})
             .then(data => {
-                setSeniors(Array.isArray(data) ? data : []);
-            })
-            .catch(() => {
-                // Fallback: fetch all users and filter client-side
-                return usersApi.getAll()
-                    .then(all => {
-                        const filtered = (Array.isArray(all) ? all : []).filter(u =>
-                            (u.role === "senior" || u.role === "alumni") &&
-                            (!q || u.name?.toLowerCase().includes(q.toLowerCase()) ||
-                                u.department?.toLowerCase().includes(q.toLowerCase()))
-                        );
-                        setSeniors(filtered);
-                    });
+                let users = Array.isArray(data) ? data : [];
+                if (q) {
+                    users = users.filter(u =>
+                        u.name?.toLowerCase().includes(q.toLowerCase()) ||
+                        u.department?.toLowerCase().includes(q.toLowerCase()) ||
+                        u.bio?.toLowerCase().includes(q.toLowerCase())
+                    );
+                }
+                setSeniors(users);
             })
             .catch(err => {
-                setError(err.message || "Failed to load seniors");
+                setError(err.message || "Failed to load members");
             })
             .finally(() => setLoading(false));
     };
@@ -58,8 +54,8 @@ const Seniors = () => {
             <div className="pt-24 pb-12 px-4 container mx-auto max-w-6xl">
                 {/* Header */}
                 <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-white mb-1">Senior & Alumni Directory</h1>
-                    <p className="text-white/40 text-sm">Browse seniors and alumni — click any card to view their profile and achievements</p>
+                    <h1 className="text-3xl font-bold text-white mb-1">Community Directory</h1>
+                    <p className="text-white/40 text-sm">Browse all members — click any card to view their profile and achievements</p>
                 </div>
 
                 {/* Search */}
@@ -86,8 +82,8 @@ const Seniors = () => {
                 ) : seniors.length === 0 ? (
                     <div className="text-center py-20 text-white/30">
                         <GraduationCap className="w-12 h-12 mx-auto mb-3 opacity-30" />
-                        <p className="mb-2">No seniors or alumni found</p>
-                        <p className="text-xs text-white/20">Users must have the "senior" or "alumni" role to appear here</p>
+                        <p className="mb-2">No members found</p>
+                        <p className="text-xs text-white/20">Try a different search</p>
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -115,13 +111,21 @@ const Seniors = () => {
                                             <div>
                                                 <h3 className="font-semibold text-white leading-tight">{s.name}</h3>
                                                 <div className="flex items-center gap-1.5 mt-1 flex-wrap">
-                                                    <span className={`text-xs px-2 py-0.5 rounded-full capitalize border ${colors.badge}`}>{s.role}</span>
+                                                    {/* Academic year badge */}
+                                                    {s.academicYear ? (
+                                                        <span className="text-xs px-2 py-0.5 rounded-full border bg-indigo-500/20 text-indigo-300 border-indigo-500/20">
+                                                            {yearLabel(s.academicYear)}
+                                                        </span>
+                                                    ) : (
+                                                        <span className="text-xs px-2 py-0.5 rounded-full capitalize border bg-white/10 text-white/50 border-white/10">
+                                                            {s.role}
+                                                        </span>
+                                                    )}
                                                     {s.department && (
                                                         <span className="flex items-center gap-0.5 text-xs text-white/40">
                                                             <MapPin className="w-3 h-3" />{s.department}
                                                         </span>
                                                     )}
-                                                    {s.batch && <span className="text-xs text-white/30">· {s.batch}</span>}
                                                 </div>
                                             </div>
                                             {(s.achievements?.length > 0) && (

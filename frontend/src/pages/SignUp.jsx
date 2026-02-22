@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Users, Eye, EyeOff, Loader2, ChevronDown } from "lucide-react";
+import { Users, Eye, EyeOff, Loader2, ChevronDown, Info } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { yearLabel, previewAcademicYear } from "@/lib/yearHelper";
 
-const ROLES = ["junior", "senior", "alumni"];
 const DEPTS = ["CSE", "ECE", "EEE", "ME", "CE", "IT", "MBA", "MCA", "Other"];
 
 const inputClass =
@@ -12,8 +12,6 @@ const inputClass =
 const selectClass =
   "w-full bg-[#1a1a2e] border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-indigo-500/50 transition-all appearance-none cursor-pointer";
 
-
-// ✅ Defined OUTSIDE SignUp so it never gets recreated on re-render
 const Field = ({ label, children }) => (
   <div>
     <label className="block text-sm text-white/60 mb-1.5">{label}</label>
@@ -25,14 +23,19 @@ const SignUp = () => {
   const { register } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({
-    name: "", email: "", password: "", role: "junior",
-    department: "", batch: "", bio: "",
+    name: "", email: "", password: "",
+    department: "", bio: "",
   });
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const set = (k) => (e) => setForm((prev) => ({ ...prev, [k]: e.target.value }));
+
+  // ── Live academic year preview (display only — server always recomputes) ──
+  const previewYear = previewAcademicYear(form.email);
+  const isKiitEmail = /^(\d{2})\d+@kiit\.ac\.in$/i.test(form.email.trim());
+  const emailTyped = form.email.trim().length > 0;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -88,15 +91,44 @@ const SignUp = () => {
               />
             </Field>
 
-            <Field label="Email">
+            {/* Email with KIIT hint & live year preview */}
+            <Field label="KIIT Email">
               <input
                 type="email"
                 value={form.email}
                 onChange={set("email")}
                 className={inputClass}
-                placeholder="you@college.edu"
+                placeholder="23052234@kiit.ac.in"
                 required
               />
+
+              {/* Always show the hint */}
+              <div className="flex items-center gap-1.5 mt-1.5">
+                <Info className="w-3.5 h-3.5 text-white/25 flex-shrink-0" />
+                <span className="text-xs text-white/30">
+                  Use your KIIT roll number email (e.g.&nbsp;23052234@kiit.ac.in)
+                </span>
+              </div>
+
+              {/* Live year preview after typing */}
+              {emailTyped && (
+                <motion.div
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`mt-2 px-3 py-2 rounded-lg text-sm flex items-center gap-2 ${previewYear !== null
+                      ? "bg-indigo-500/10 border border-indigo-500/20 text-indigo-300"
+                      : "bg-rose-500/10 border border-rose-500/20 text-rose-400"
+                    }`}
+                >
+                  {previewYear !== null ? (
+                    <>📚 You'll be registered as <strong>{yearLabel(previewYear)}</strong></>
+                  ) : isKiitEmail ? (
+                    <>⚠️ Batch out of range — only 1st–4th year students can register</>
+                  ) : (
+                    <>⚠️ Please enter a valid KIIT email</>
+                  )}
+                </motion.div>
+              )}
             </Field>
 
             <Field label="Password">
@@ -119,50 +151,20 @@ const SignUp = () => {
               </div>
             </Field>
 
-            {/* Role */}
-            <Field label="I am a...">
-              <div className="grid grid-cols-3 gap-2">
-                {ROLES.map((r) => (
-                  <button
-                    key={r}
-                    type="button"
-                    onClick={() => setForm((prev) => ({ ...prev, role: r }))}
-                    className={`py-2 rounded-lg text-sm font-medium capitalize transition-all border ${form.role === r
-                      ? "border-indigo-500 bg-indigo-500/20 text-indigo-300"
-                      : "border-white/10 bg-white/5 text-white/40 hover:border-white/20"
-                      }`}
-                  >
-                    {r}
-                  </button>
-                ))}
+            {/* Department */}
+            <Field label="Department">
+              <div className="relative">
+                <select
+                  value={form.department}
+                  onChange={set("department")}
+                  className={selectClass}
+                >
+                  <option value="">Select department</option>
+                  {DEPTS.map((d) => <option key={d} value={d}>{d}</option>)}
+                </select>
+                <ChevronDown className="absolute right-3 top-3 w-4 h-4 text-white/30 pointer-events-none" />
               </div>
             </Field>
-
-            <div className="grid grid-cols-2 gap-3">
-              <Field label="Department">
-                <div className="relative">
-                  <select
-                    value={form.department}
-                    onChange={set("department")}
-                    className={selectClass}
-                  >
-                    <option value="">Select</option>
-                    {DEPTS.map((d) => <option key={d} value={d}>{d}</option>)}
-                  </select>
-                  <ChevronDown className="absolute right-3 top-3 w-4 h-4 text-white/30 pointer-events-none" />
-                </div>
-              </Field>
-
-              <Field label="Batch / Year">
-                <input
-                  type="text"
-                  value={form.batch}
-                  onChange={set("batch")}
-                  className={inputClass}
-                  placeholder="e.g. 2025"
-                />
-              </Field>
-            </div>
 
             <Field label="Bio (optional)">
               <textarea

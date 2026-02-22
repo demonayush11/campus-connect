@@ -6,6 +6,7 @@ import AppNavbar from "@/components/AppNavbar";
 import { useAuth } from "@/context/AuthContext";
 import { sessionsApi, groupsApi, postsApi, usersApi } from "@/lib/api";
 import SeniorProfileModal from "@/components/SeniorProfileModal";
+import { yearLabel } from "@/lib/yearHelper";
 
 const roleGradient = {
     junior: "from-blue-400 to-cyan-500",
@@ -99,8 +100,9 @@ const Dashboard = () => {
                                 <h1 className="text-2xl font-bold text-white">{user?.name}</h1>
                             </div>
                         </div>
-                        <span className="inline-block bg-white/20 text-white text-xs px-3 py-1 rounded-full capitalize mt-1">
-                            {user?.role} {user?.department ? `· ${user.department}` : ""} {user?.batch ? `· Batch ${user.batch}` : ""}
+                        <span className="inline-block bg-white/20 text-white text-xs px-3 py-1 rounded-full mt-1">
+                            {user?.academicYear ? yearLabel(user.academicYear) : (user?.role ?? "Student")}
+                            {user?.department ? ` · ${user.department}` : ""}
                         </span>
                     </div>
                 </motion.div>
@@ -189,36 +191,28 @@ const Dashboard = () => {
                         <p className="text-white/30 text-sm py-4 text-center">No members yet</p>
                     ) : (
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-                            {recentMembers.map((m) => {
-                                const isSeniorOrAlumni = m.role === "senior" || m.role === "alumni";
-                                return (
-                                    <motion.div
-                                        key={m.id}
-                                        whileHover={{ scale: 1.05 }}
-                                        onClick={() => isSeniorOrAlumni && setSelectedMemberId(m.id)}
-                                        className={`flex flex-col items-center gap-2 p-3 bg-white/5 rounded-xl hover:bg-white/8 transition-all text-center ${isSeniorOrAlumni ? "cursor-pointer hover:border-indigo-500/30 border border-transparent" : ""}`}
-                                    >
-                                        <div className="relative">
-                                            <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${roleGradient[m.role] || roleGradient.junior} flex items-center justify-center text-white font-bold text-lg`}>
-                                                {m.name?.[0]?.toUpperCase()}
-                                            </div>
-                                            {isSeniorOrAlumni && (
-                                                <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-indigo-500 rounded-full flex items-center justify-center">
-                                                    <GraduationCap className="w-2.5 h-2.5 text-white" />
-                                                </div>
-                                            )}
+                            {recentMembers.map((m) => (
+                                <motion.div
+                                    key={m.id}
+                                    whileHover={{ scale: 1.05 }}
+                                    onClick={() => setSelectedMemberId(m.id)}
+                                    className="flex flex-col items-center gap-2 p-3 bg-white/5 rounded-xl hover:bg-white/8 transition-all text-center cursor-pointer hover:border-indigo-500/30 border border-transparent"
+                                >
+                                    <div className="relative">
+                                        <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${roleGradient[m.role] || roleGradient.junior} flex items-center justify-center text-white font-bold text-lg`}>
+                                            {m.name?.[0]?.toUpperCase()}
                                         </div>
-                                        <div>
-                                            <p className="text-white text-xs font-medium truncate w-full max-w-[80px]">{m.name}</p>
-                                            <span className={`text-xs px-1.5 py-0.5 rounded-full capitalize ${roleColors[m.role] || roleColors.junior}`}>
-                                                {m.role}
-                                            </span>
-                                            {m.department && <p className="text-white/30 text-xs mt-0.5">{m.department}</p>}
-                                            {isSeniorOrAlumni && <p className="text-indigo-400/60 text-xs mt-0.5">View profile</p>}
-                                        </div>
-                                    </motion.div>
-                                );
-                            })}
+                                    </div>
+                                    <div>
+                                        <p className="text-white text-xs font-medium truncate w-full max-w-[80px]">{m.name}</p>
+                                        <span className="text-xs px-1.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300">
+                                            {m.academicYear ? yearLabel(m.academicYear) : (m.role ?? "Student")}
+                                        </span>
+                                        {m.department && <p className="text-white/30 text-xs mt-0.5">{m.department}</p>}
+                                        <p className="text-indigo-400/60 text-xs mt-0.5">View profile</p>
+                                    </div>
+                                </motion.div>
+                            ))}
                         </div>
                     )}
                 </div>

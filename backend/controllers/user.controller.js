@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import prisma from "../config/db.js";
+import { computeAcademicYear } from "./auth.controller.js";
 
 // ─── Safe user select (never expose password) ─────────────────────────────────
 const safeSelect = {
@@ -7,7 +8,8 @@ const safeSelect = {
   name: true,
   email: true,
   role: true,
-  batch: true,
+  rollNumber: true,
+  admissionYear: true,
   department: true,
   bio: true,
   skills: true,
@@ -17,6 +19,12 @@ const safeSelect = {
   isVerified: true,
   createdAt: true,
 };
+
+// Attach live-computed academicYear to a user or array of users
+const withYear = (u) => ({
+  ...u,
+  academicYear: u.admissionYear != null ? computeAcademicYear(u.admissionYear) : null,
+});
 
 // ─── @desc  Get own profile ───────────────────────────────────────────────────
 // ─── @route GET /api/users/me
@@ -30,7 +38,7 @@ export const getProfile = async (req, res) => {
 
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    res.json(user);
+    res.json(withYear(user));
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
@@ -41,8 +49,8 @@ export const getProfile = async (req, res) => {
 // ─── @route PUT /api/users/profile
 // ─── @access Private
 export const updateProfile = async (req, res) => {
-  const { name, bio, skills, github, linkedin, department, batch, profilePic } =
-    req.body;
+  // Note: rollNumber, admissionYear, academicYear are NOT updatable by client
+  const { name, bio, skills, github, linkedin, department, profilePic } = req.body;
 
   try {
     const updated = await prisma.user.update({
@@ -54,13 +62,12 @@ export const updateProfile = async (req, res) => {
         ...(github !== undefined && { github }),
         ...(linkedin !== undefined && { linkedin }),
         ...(department !== undefined && { department }),
-        ...(batch !== undefined && { batch }),
         ...(profilePic !== undefined && { profilePic }),
       },
       select: safeSelect,
     });
 
-    res.json({ message: "Profile updated", user: updated });
+    res.json({ message: "Profile updated", user: withYear(updated) });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
@@ -126,7 +133,7 @@ export const getAllUsers = async (req, res) => {
       orderBy: { createdAt: "desc" },
     });
 
-    res.json(users);
+    res.json(users.map(withYear));
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
@@ -157,7 +164,7 @@ export const getSeniors = async (req, res) => {
       },
       orderBy: { createdAt: "desc" },
     });
-    res.json(users);
+    res.json(users.map(withYear));
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
@@ -179,7 +186,7 @@ export const getUserById = async (req, res) => {
 
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    res.json(user);
+    res.json(withYear(user));
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });

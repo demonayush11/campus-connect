@@ -176,7 +176,7 @@ function HeroGeometric({
                         transition={{ delay: 0.9 }}
                     >
                         <p className="text-base sm:text-lg md:text-xl text-white/40 mb-8 leading-relaxed font-light tracking-wide max-w-xl mx-auto px-4">
-                            Where college students bridge the gap between years, 
+                            Where college students bridge the gap between years,
                             sharing knowledge and building lifelong connections.
                         </p>
                     </motion.div>

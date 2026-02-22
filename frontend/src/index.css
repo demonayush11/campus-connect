@@ -45,7 +45,7 @@
     /* Hero Gradient Colors */
     --hero-gradient-start: 259 94% 51%;
     --hero-gradient-end: 217 91% 60%;
-    
+
     /* Feature Cards */
     --feature-bg: 255 255 255;
     --feature-border: 214.3 31.8% 91.4%;
@@ -101,7 +101,7 @@
 
     --hero-gradient-start: 259 94% 71%;
     --hero-gradient-end: 217 91% 70%;
-    
+
     --feature-bg: 217.2 32.6% 17.5%;
     --feature-border: 217.2 32.6% 25.5%;
     --sidebar-background: 240 5.9% 10%;
@@ -120,9 +120,14 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
-    background-color: #030303; /* Explicit override — prevents yellow/white flash */
+    background-color: #030303;
+    /* Explicit override — prevents yellow/white flash */
   }
 }
 

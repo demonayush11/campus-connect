@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { usersApi, achievementsApi, chatApi } from "@/lib/api";
+import { yearLabel } from "@/lib/yearHelper";
 
 const categoryColors = {
     Academic: "bg-blue-500/20 text-blue-300 border-blue-500/20",
@@ -155,13 +156,18 @@ const SeniorProfileModal = ({ userId, onClose }) => {
 
                                     <h2 className="text-xl font-bold text-white">{profile.name}</h2>
                                     <div className="flex flex-wrap items-center gap-2 mt-1 mb-3">
-                                        <span className={`text-xs capitalize px-2.5 py-1 rounded-full bg-gradient-to-r ${grad} text-white`}>{profile.role}</span>
+                                        {/* Show academic year — never the raw role string */}
+                                        {profile.academicYear ? (
+                                            <span className="text-xs px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/20">
+                                                {yearLabel(profile.academicYear)}
+                                            </span>
+                                        ) : null}
                                         {profile.department && (
                                             <span className="flex items-center gap-1 text-xs text-white/40">
                                                 <MapPin className="w-3 h-3" />{profile.department}
                                             </span>
                                         )}
-                                        {profile.batch && <span className="text-xs text-white/30">· Batch {profile.batch}</span>}
+                                        {profile.rollNumber && <span className="text-xs text-white/30">{profile.rollNumber}</span>}
                                     </div>
 
                                     {profile.bio && <p className="text-white/50 text-sm mb-4 leading-relaxed">{profile.bio}</p>}

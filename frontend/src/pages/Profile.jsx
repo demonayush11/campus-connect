@@ -4,6 +4,7 @@ import { User, Edit2, Save, X, Github, Linkedin, Lock, Loader2, GraduationCap, U
 import AppNavbar from "@/components/AppNavbar";
 import { useAuth } from "@/context/AuthContext";
 import { usersApi, achievementsApi } from "@/lib/api";
+import { yearLabel } from "@/lib/yearHelper";
 
 const Profile = () => {
     const { user, updateUser } = useAuth();
@@ -19,7 +20,6 @@ const Profile = () => {
         name: user?.name || "",
         bio: user?.bio || "",
         department: user?.department || "",
-        batch: user?.batch || "",
         github: user?.github || "",
         linkedin: user?.linkedin || "",
         skills: (user?.skills || []).join(", "),
@@ -33,7 +33,6 @@ const Profile = () => {
                 name: fresh.name || "",
                 bio: fresh.bio || "",
                 department: fresh.department || "",
-                batch: fresh.batch || "",
                 github: fresh.github || "",
                 linkedin: fresh.linkedin || "",
                 skills: (fresh.skills || []).join(", "),
@@ -53,10 +52,11 @@ const Profile = () => {
 
     const categories = ["Academic", "Technical", "Leadership", "Sports", "Other"];
 
-    const isSeniorOrAlumni = user?.role === "senior" || user?.role === "alumni" || user?.role === "admin";
+    // Allow all students to manage achievements
+    const canAddAchievements = !!user?.id;
 
     useEffect(() => {
-        if (!user?.id || !isSeniorOrAlumni) return;
+        if (!user?.id) return;
         setAchieveLoading(true);
         achievementsApi.getByUser(user.id)
             .then(setAchievements)
@@ -104,7 +104,6 @@ const Profile = () => {
                 name: fresh.name || "",
                 bio: fresh.bio || "",
                 department: fresh.department || "",
-                batch: fresh.batch || "",
                 github: fresh.github || "",
                 linkedin: fresh.linkedin || "",
                 skills: (fresh.skills || []).join(", "),
@@ -196,15 +195,9 @@ const Profile = () => {
                         <div className="space-y-4">
                             {editMode ? (
                                 <>
-                                    <div className="grid grid-cols-2 gap-3">
-                                        <div>
-                                            <label className="text-xs text-white/40 mb-1 block">Full Name</label>
-                                            <input className={inputClass} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-                                        </div>
-                                        <div>
-                                            <label className="text-xs text-white/40 mb-1 block">Batch / Year</label>
-                                            <input className={inputClass} value={form.batch} onChange={(e) => setForm({ ...form, batch: e.target.value })} placeholder="e.g. 2025" />
-                                        </div>
+                                    <div>
+                                        <label className="text-xs text-white/40 mb-1 block">Full Name</label>
+                                        <input className={inputClass} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
                                     </div>
                                     <div>
                                         <label className="text-xs text-white/40 mb-1 block">Department</label>
@@ -234,11 +227,16 @@ const Profile = () => {
                                     <div>
                                         <h2 className="text-2xl font-bold text-white">{user?.name}</h2>
                                         <div className="flex items-center gap-2 mt-1">
-                                            <span className={`text-xs capitalize px-2.5 py-1 rounded-full bg-gradient-to-r ${roleGradient[user?.role]} text-white font-medium`}>
-                                                {user?.role}
-                                            </span>
+                                            {/* Academic year badge — never shows "junior"/"senior" */}
+                                            {user?.academicYear ? (
+                                                <span className="text-xs px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/20 font-medium">
+                                                    {yearLabel(user.academicYear)}
+                                                </span>
+                                            ) : null}
+                                            {user?.rollNumber && (
+                                                <span className="text-xs text-white/30">{user.rollNumber}</span>
+                                            )}
                                             {user?.department && <span className="text-sm text-white/40">{user.department}</span>}
-                                            {user?.batch && <span className="text-sm text-white/40">· Batch {user.batch}</span>}
                                         </div>
                                     </div>
                                     <p className="text-white/60 text-sm">{user?.bio || <span className="italic text-white/20">No bio yet. Click edit to add one.</span>}</p>
@@ -306,8 +304,8 @@ const Profile = () => {
                     )}
                 </div>
 
-                {/* Achievements (seniors/alumni only) */}
-                {isSeniorOrAlumni && (
+                {/* Achievements — available to all students */}
+                {canAddAchievements && (
                     <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
                         <div className="flex items-center justify-between mb-4">
                             <div className="flex items-center gap-2">
