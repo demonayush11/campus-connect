@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Users } from "lucide-react";
 import { HoverButton } from "@/components/ui/hover-glow-button";
 import { Link } from "react-router-dom";

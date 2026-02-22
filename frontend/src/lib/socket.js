@@ -1,6 +1,6 @@
 import { io as socketIO } from "socket.io-client";
 
-const SOCKET_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const SOCKET_URL = import.meta.env.VITE_API_URL || "https://campus-connect-xbc9.onrender.com";
 
 // Singleton — one socket connection for the whole app
 let socket = null;
