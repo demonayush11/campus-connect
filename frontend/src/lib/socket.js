@@ -1,4 +1,4 @@
-import { io as socketIO } from "socket.io-client";
+         import { io as socketIO } from "socket.io-client";
 
 const SOCKET_URL = import.meta.env.VITE_API_URL || "https://campus-connect-xbc9.onrender.com";
 
